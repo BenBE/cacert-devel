@@ -2723,136 +2723,152 @@
 
 	if($id == 43 && array_key_exists('tverify',$_REQUEST) && $_REQUEST['tverify'] > 0)
 	{
-		$memid = $_REQUEST['userid'] = intval($_REQUEST['tverify']);
+		set_admin_flag(0, 'tverify');
+/*		$memid = $_REQUEST['userid'] = intval($_REQUEST['tverify']);
 		$query = "select * from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['tverify'];
-		mysql_query("update `users` set `tverify`='$ver' where `id`='$memid'");
+		mysql_query("update `users` set `tverify`='$ver' where `id`='$memid'"); */
 	}
 
-  if($id == 43 && array_key_exists('assurer',$_REQUEST) && $_REQUEST['assurer'] > 0)
-  {
-    csrf_check('admsetassuret');
+	if($id == 43 && array_key_exists('assurer',$_REQUEST) && $_REQUEST['assurer'] > 0)
+	{
+		set_admin_flag('admsetassuret', 'assurer');
+/*    csrf_check('admsetassuret');
     $memid = $_REQUEST['userid'] = intval($_REQUEST['assurer']);
     $query = "select * from `users` where `id`='$memid'";
     $row = mysql_fetch_assoc(mysql_query($query));
     $ver = !$row['assurer'];
-    mysql_query("update `users` set `assurer`='$ver' where `id`='$memid'");
+    mysql_query("update `users` set `assurer`='$ver' where `id`='$memid'");*/
   }
 
-  if($id == 43 && array_key_exists('assurer_blocked',$_REQUEST) && $_REQUEST['assurer_blocked'] > 0)
-  {
-    $memid = $_REQUEST['userid'] = intval($_REQUEST['assurer_blocked']);
+	if($id == 43 && array_key_exists('assurer_blocked',$_REQUEST) && $_REQUEST['assurer_blocked'] > 0)
+	{
+		set_admin_flag('admassblock', 'assurer_blocked');
+/*    $memid = $_REQUEST['userid'] = intval($_REQUEST['assurer_blocked']);
     $query = "select * from `users` where `id`='$memid'";
     $row = mysql_fetch_assoc(mysql_query($query));
     $ver = !$row['assurer_blocked'];
-    mysql_query("update `users` set `assurer_blocked`='$ver' where `id`='$memid'");
+    mysql_query("update `users` set `assurer_blocked`='$ver' where `id`='$memid'");*/
   }
 
 	if($id == 43 && array_key_exists('locked',$_REQUEST) && $_REQUEST['locked'] > 0)
 	{
-		csrf_check('admactlock');
+		set_admin_flag('admactlock', 'locked');
+/*		csrf_check('admactlock');
 		$memid = $_REQUEST['userid'] = intval($_REQUEST['locked']);
 		$query = "select * from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['locked'];
-		mysql_query("update `users` set `locked`='$ver' where `id`='$memid'");
+		mysql_query("update `users` set `locked`='$ver' where `id`='$memid'");*/
 	}
 
 	if($id == 43 && array_key_exists('codesign',$_REQUEST) && $_REQUEST['codesign'] > 0)
 	{
-		csrf_check('admcodesign');
+		set_admin_flag('admcodesign', 'codesign');
+/*		csrf_check('admcodesign');
 		$memid = $_REQUEST['userid'] = intval($_REQUEST['codesign']);
 		$query = "select * from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['codesign'];
-		mysql_query("update `users` set `codesign`='$ver' where `id`='$memid'");
+		mysql_query("update `users` set `codesign`='$ver' where `id`='$memid'");*/
 	}
 
 	if($id == 43 && array_key_exists('orgadmin',$_REQUEST) && $_REQUEST['orgadmin'] > 0)
 	{
-		csrf_check('admorgadmin');
+		set_admin_flag('admorgadmin', 'orgadmin');
+/*		csrf_check('admorgadmin');
 		$memid = $_REQUEST['userid'] = intval($_REQUEST['orgadmin']);
 		$query = "select * from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['orgadmin'];
 		mysql_query("update `users` set `orgadmin`='$ver' where `id`='$memid'");
-	}
+	} */
 
 	if($id == 43 && array_key_exists('ttpadmin',$_REQUEST) && $_REQUEST['ttpadmin'] > 0)
 	{
-		csrf_check('admttpadmin');
+		set_admin_flag('admttpadmin', 'ttpadmin', $max=2);
+/*		csrf_check('admttpadmin');
 		$memid = $_REQUEST['userid'] = intval($_REQUEST['ttpadmin']);
-		$query = "select * from `users` where `id`='$memid'";
+		$query = "select `ttpadmin from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
-		$ver = !$row['ttpadmin'];
-		mysql_query("update `users` set `ttpadmin`='$ver' where `id`='$memid'");
+		$ver = $row['ttpadmin'] + 1;
+		if($ver > 2)
+			$ver = 0;
+		mysql_query("update `users` set `ttpadmin`='$ver' where `id`='$memid'"); */
 	}
 
 	if($id == 43 && array_key_exists('adadmin',$_REQUEST) && $_REQUEST['adadmin'] > 0)
 	{
-		$memid = $_REQUEST['userid'] = intval($_REQUEST['adadmin']);
+		set_admin_flag('admadadmin', 'adadmin');
+/*		$memid = $_REQUEST['userid'] = intval($_REQUEST['adadmin']);
 		$query = "select * from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = $row['adadmin'] + 1;
 		if($ver > 2)
 			$ver = 0;
-		mysql_query("update `users` set `adadmin`='$ver' where `id`='$memid'");
+		mysql_query("update `users` set `adadmin`='$ver' where `id`='$memid'"); */
 	}
 
 	if($id == 43 && array_key_exists('locadmin',$_REQUEST) && $_REQUEST['locadmin'] > 0)
 	{
-		$memid = $_REQUEST['userid'] = intval($_REQUEST['locadmin']);
+		set_admin_flag('admlocadmin', 'locadmin');
+/*		$memid = $_REQUEST['userid'] = intval($_REQUEST['locadmin']);
 		$query = "select * from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['locadmin'];
-		mysql_query("update `users` set `locadmin`='$ver' where `id`='$memid'");
+		mysql_query("update `users` set `locadmin`='$ver' where `id`='$memid'"); */
 	}
 
 	if($id == 43 && array_key_exists('admin',$_REQUEST) && $_REQUEST['admin'] > 0)
 	{
-		csrf_check('admsetadmin');
+		set_admin_flag('admsetadmin', 'admin');
+/*		csrf_check('admsetadmin');
 		$memid = $_REQUEST['userid'] = intval($_REQUEST['admin']);
 		$query = "select * from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['admin'];
-		mysql_query("update `users` set `admin`='$ver' where `id`='$memid'");
+		mysql_query("update `users` set `admin`='$ver' where `id`='$memid'"); */
 	}
 
 	if($id == 43 && array_key_exists('general',$_REQUEST) && $_REQUEST['general'] > 0)
 	{
-		$memid = $_REQUEST['userid'] = intval($_REQUEST['general']);
+		set_admin_flag(0, 'admin');
+/*		$memid = $_REQUEST['userid'] = intval($_REQUEST['general']);
 		$query = "select * from `alerts` where `memid`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['general'];
-		mysql_query("update `alerts` set `general`='$ver' where `memid`='$memid'");
+		mysql_query("update `alerts` set `general`='$ver' where `memid`='$memid'"); */
 	}
 
 	if($id == 43 && array_key_exists('country',$_REQUEST) && $_REQUEST['country'] > 0)
 	{
-		$memid = $_REQUEST['userid'] = intval($_REQUEST['country']);
+		set_admin_flag(0, 'country');
+/*		$memid = $_REQUEST['userid'] = intval($_REQUEST['country']);
 		$query = "select * from `alerts` where `memid`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['country'];
-		mysql_query("update `alerts` set `country`='$ver' where `memid`='$memid'");
+		mysql_query("update `alerts` set `country`='$ver' where `memid`='$memid'"); */
 	}
 
 	if($id == 43 && array_key_exists('regional',$_REQUEST) && $_REQUEST['regional'] > 0)
 	{
-		$memid = $_REQUEST['userid'] = intval($_REQUEST['regional']);
+		set_admin_flag(0, 'regional');
+/*		$memid = $_REQUEST['userid'] = intval($_REQUEST['regional']);
 		$query = "select * from `alerts` where `memid`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['regional'];
-		mysql_query("update `alerts` set `regional`='$ver' where `memid`='$memid'");
+		mysql_query("update `alerts` set `regional`='$ver' where `memid`='$memid'"); */
 	}
 
 	if($id == 43 && array_key_exists('radius',$_REQUEST) && $_REQUEST['radius'] > 0)
 	{
-		$memid = $_REQUEST['userid'] = intval($_REQUEST['radius']);
+		set_admin_flag(0, 'radius');
+/*		$memid = $_REQUEST['userid'] = intval($_REQUEST['radius']);
 		$query = "select * from `alerts` where `memid`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['radius'];
-		mysql_query("update `alerts` set `radius`='$ver' where `memid`='$memid'");
+		mysql_query("update `alerts` set `radius`='$ver' where `memid`='$memid'"); */
 	}
 
 	if($id == 50)
@@ -3015,4 +3031,26 @@
 		$_SESSION['_config']['orgid'] = intval($orgid);
 	if(intval($memid) > 0)
 		$_SESSION['_config']['memid'] = intval($memid);
+
+	/**
+	 * set_admin_flag()
+	 * set the value of a flag in the user account
+	 * @param mixed $csrf_type, if =0 no crsf session check is performed
+	 * @param mixed $admintype, defines the field for the flag
+	 * @param integer $max, = 1 just 0/1 allowed, >1 moving the value to the max value and start from 0 then
+	 * @return
+	 */
+	function set_admin_flag($csrf_type, $admintype, $max=1){
+		if ($csrf_type!=0) {
+			csrf_check($csrf_type);
+		}
+		$memid = $_REQUEST['userid'] = intval($_REQUEST[$admintype]);
+		$query = "select `$admintype` from `users` where `id`='$memid'";
+		$row = mysql_fetch_assoc(mysql_query($query));
+		$ver = $row[$admintype] + 1;
+		if($ver > $max)
+			$ver = 0;
+		}
+		mysql_query("update `users` set `$admintype`='$ver' where `id`='$memid'");
+	}
 ?>

@@ -25,12 +25,13 @@
 
 	$row = $_SESSION['_config']['notarise'];
 
-	if($_SESSION['profile']['ttpadmin'] == 1)
-//		$methods = array("Face to Face Meeting", "Trusted 3rd Parties", "TopUP");
-//	else
+	if($_SESSION['profile']['ttpadmin'] == 2){
+		$methods = array("Face to Face Meeting", "Trusted 3rd Parties", "TTP TOPUP");
+	}elseif($_SESSION['profile']['ttpadmin'] == 1){
 		$methods = array("Face to Face Meeting", "Trusted 3rd Parties");
-	else
+	}else{
 		$methods = array("Face to Face Meeting");
+	}
 
 	$fname = $row['fname'];
 	$mname = $row['mname'];
