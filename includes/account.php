@@ -2782,8 +2782,8 @@
 		$query = "select * from `users` where `id`='$memid'";
 		$row = mysql_fetch_assoc(mysql_query($query));
 		$ver = !$row['orgadmin'];
-		mysql_query("update `users` set `orgadmin`='$ver' where `id`='$memid'");
-	} */
+		mysql_query("update `users` set `orgadmin`='$ver' where `id`='$memid'");*/
+	}
 
 	if($id == 43 && array_key_exists('ttpadmin',$_REQUEST) && $_REQUEST['ttpadmin'] > 0)
 	{
