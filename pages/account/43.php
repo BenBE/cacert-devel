@@ -19,7 +19,7 @@
 include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 	$ticketno='';
 	$ticketvalidation=FALSE;
-
+//check if an assurance should be deleted
 	//check if a ticket number is entered
 	if (isset($_REQUEST['ticketno'])) {
 		$ticketno=trim(mysql_real_escape_string($_REQUEST['ticketno']));
@@ -34,6 +34,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 	}
 	if (isset($_SESSION['ticketmsg'])) {
 		$ticketmsg=$_SESSION['ticketmsg'];
+// search for an account by email search, if more than one is found display list to choose
 	} else {
 		$ticketmsg='';
 	}
@@ -99,6 +100,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 </table><br><br>
 <?    } elseif(mysql_num_rows($res) == 1) {
       $row = mysql_fetch_assoc($res);
+// display user information for given user id
       $_REQUEST['userid'] = $row['id'];
     } else {
       printf(_("No users found matching %s"), sanitizeHTML($email));
@@ -113,6 +115,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 		$query = "select * from `users` where `id`='$userid' and `users`.`deleted`=0";
 		$res = mysql_query($query);
 		if(mysql_num_rows($res) <= 0)
+//display account data
 		{
 			echo _("I'm sorry, the user you were looking for seems to have disappeared! Bad things are a foot!");
 		} else {
@@ -224,6 +227,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 		<input type="text" name="year" value="<?=$year?>" size="4">
 		<input type="submit" value="Go"></form></nobr></td>
 	</tr>
+<? // list of flags ?>
 	<tr>
 		<td class="DataTD"><?=_("CCA accepted")?>:</td>
 		<td class="DataTD"><a href="account.php?id=57&amp;userid=<?=intval($row['id'])?>"><?=intval(get_user_agreement_status($row['id'])) ? _("Yes") : _("No") ?></a></td>
@@ -240,6 +244,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 		<td class="DataTD"><?=_("Blocked Assurer")?>:</td>
 		<td class="DataTD"><a href="account.php?id=43&amp;assurer_blocked=<?=intval($row['id'])?>"><?=$row['assurer_blocked']?></a></td>
 	</tr>
+<? //change password, view secret questions and delete account section ?>
 	<tr>
 		<td class="DataTD"><?=_("Account Locking")?>:</td>
 		<td class="DataTD"><a href="account.php?id=43&amp;locked=<?=$row['id']?>&amp;csrf=<?=make_csrf('admactlock')?>"><?=$row['locked']?></a></td>
@@ -289,6 +294,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 		<td class="DataTD"><?=_("Within 200km Announcements")?>:</td>
 		<td class="DataTD"><a href="account.php?id=43&amp;radius=<?=$row['id']?>"><?=$alerts['radius']?></a></td>
 	</tr>
+<? //change password, view secret questions and delete account section ?>
 	<tr>
 		<td class="DataTD"><?=_("Change Password")?>:</td>
 		<td class="DataTD"><a href="account.php?id=44&amp;userid=<?=$row['id']?>"><?=_("Change Password")?></a></td>
@@ -326,6 +332,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 			<td class="DataTD"><?=_("Lost Password")?> - A3:</td>
 			<td class="DataTD"><?=sanitizeHTML($row['A3'])?></td>
 		</tr>
+<? // list of domains ?>
 		<tr>
 			<td class="DataTD"><?=_("Lost Password")?> - Q4:</td>
 			<td class="DataTD"><?=sanitizeHTML($row['Q4'])?></td>
@@ -354,13 +361,16 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 		<tr>
 			<td class="DataTD" colspan="2"><a href="account.php?id=43&amp;userid=<?=$row['id']?>&amp;showlostpw=yes"><?=_("Show Lost Password Details")?></a></td>
 		</tr>
-	<? } ?>
+	<? }
+	// list assurance points
+	?>
 	<tr>
 		<td class="DataTD"><?=_("Assurance Points")?>:</td>
 		<td class="DataTD"><?=intval($drow['points'])?></td>
 	</tr>
 </table>
 <br><?
+//list secondary email addresses
 	$query = "select * from `email` where `memid`='".intval($row['id'])."' and `deleted`=0 and `hash`=''
 		and `email`!='".mysql_escape_string($row['email'])."'";
 		$dres = mysql_query($query);
@@ -386,6 +396,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 	if(mysql_num_rows($dres) > 0) { ?>
 		<table align="center" valign="middle" border="0" cellspacing="0" cellpadding="0" class="wrapper">
 			<tr>
+<? // list of domains ?>
 				<td colspan="5" class="title"><?=_("Verified Domains")?></td>
 			</tr><?
 			$rc = mysql_num_rows($dres);
@@ -489,6 +500,8 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 			`email` ='".$uemail."' and
 			`deleted` = 0";
 		$dres = mysql_query($query);
+
+// certificate overview
 		if ($drow = mysql_fetch_assoc($dres)) {
 			$drow['edeleted'] = 0;
 		} else {
@@ -550,6 +563,8 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 <br>
 <?
  //  End - Debug infos
+
+// certificate overview
 ?>
 
 <table align="center" valign="middle" border="0" cellspacing="0" cellpadding="0" class="wrapper">
@@ -799,7 +814,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 	$dres = mysql_query($query);
 	$drow = mysql_fetch_assoc($dres);
 	$total = $drow['total'];
-
+<? // list assurances ?>
 	$maxexpire = "0000-00-00 00:00:00";
 	if ($drow['maxexpire']) {
 		$maxexpire = $drow['maxexpire'];
@@ -859,7 +874,7 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 	</tr>
 </table>
 <br>
-
+<? // list assurances ?>
 
 <a href="account.php?id=43&amp;userid=<?=$row['id']?>&amp;shownotary=assuredto"><?=_("Show Assurances the user got")?></a>
  (<a href="account.php?id=43&amp;userid=<?=$row['id']?>&amp;shownotary=assuredto15"><?=_("New calculation")?></a>)
