@@ -125,7 +125,9 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 			$query = "select sum(`points`) as `points` from `notary` where `to`='".intval($row['id'])."'";
 			$dres = mysql_query($query);
 			$drow = mysql_fetch_assoc($dres);
-			$alerts = mysql_fetch_assoc(mysql_query("select * from `alerts` where `memid`='".intval($row['id'])."'"));
+// comment to be deleted before release
+//			$alerts = mysql_fetch_assoc(mysql_query("select * from `alerts` where `memid`='".intval($row['id'])."'"));
+			$alerts = get_alerts(intval($row['id']));
 
 		//deletes an assurance
 			if(array_key_exists('assurance',$_REQUEST) && $_REQUEST['assurance'] > 0 && $ticketvalidation==true)
