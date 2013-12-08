@@ -112,8 +112,10 @@ include_once($_SESSION['_config']['filepath']."/includes/notary.inc.php");
 	{
 		$userid = intval($_REQUEST['userid']);
 		$adminid=intval($_SESSION['profile']['id']);
-		$query = "select * from `users` where `id`='$userid' and `users`.`deleted`=0";
-		$res = mysql_query($query);
+//comment to be deleted before release
+//		$query = "select * from `users` where `users`.`id`='$userid' and `users`.`deleted`=0";
+//		$res = mysql_query($query);
+		$res =get_user_data($userid);
 		if(mysql_num_rows($res) <= 0)
 //display account data
 		{
