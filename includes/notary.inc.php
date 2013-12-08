@@ -1184,6 +1184,7 @@ function valid_ticket_number($ticketno){
 	return false;
 }
 
+// function for handling account/43.php
 /**
  * get_user_data()
  *  returns all data of to an account given by the id
