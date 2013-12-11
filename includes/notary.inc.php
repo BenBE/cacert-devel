@@ -199,6 +199,17 @@
 		get_assurer_ranking($userid,$num_of_assurances,$rank_of_assurer);
 		get_assuree_ranking($userid,$num_of_assurees,$rank_of_assuree);
 
+function valid_ticket_number($ticketno){
+	//return if a given ticket number is valid
+	//a arbitration case
+	//d dispute action
+	//s support case
+	$pattern='/[adsADS]\d{8}\./';
+	if (preg_match($pattern, $ticketno)) {
+		return true;
+	}
+	return false;
+}
 ?>
 <table align="center" valign="middle" border="0" cellspacing="0" cellpadding="0" class="wrapper">
 	<tr>
